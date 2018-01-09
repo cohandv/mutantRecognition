@@ -29,7 +29,7 @@ class DNA {
       var matches = serializedMatrix.match(this.mutantChainRegex)
       var isMutant = matches.length > minChainMatches
 
-      if (config.persist) {
+      if (isMutant && config.persist) {
         console.log('Persisting information')
         const Stats = require('./stats.js');
         var stats = new Stats()
