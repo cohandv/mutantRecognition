@@ -17,7 +17,7 @@ class DNA {
       this.isValid()
     }
 
-    identifyMutant() {
+    identifyMutant(minChainMatches) {
       this.isValid() //Just in case this was modified outside
 
       //concat all objects of the Matrix
@@ -27,7 +27,16 @@ class DNA {
                            + this.matrix.diagonal.anti
 
       var matches = serializedMatrix.match(this.mutantChainRegex)
-      return matches.length
+      var isMutant = matches.length >= minChainMatches
+      console.log(isMutant)
+
+      if (config.persist) {
+        console.log('Persisting information')
+        const Stats = require('./stats.js');
+        var stats = new Stats()
+        var summary = stats.setAsync(this.matrix.original, !isMutant)
+     }
+
     }
 
 }

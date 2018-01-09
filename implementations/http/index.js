@@ -2,6 +2,7 @@
 
 const config = require('../../config.js')
 const Mutant = require('./mutant.js')
+const Stats = require('./stats.js')
 
 class Http {
 
@@ -16,6 +17,7 @@ class Http {
 
       //Register Routes
       new Mutant(this.server)
+      new Stats(this.server)
     }
 
     start() {
