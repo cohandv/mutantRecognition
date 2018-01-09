@@ -15,5 +15,7 @@ Update the inputMatrix value with the matrix you want to test
 
 ## Running it on a docker environment
 ```
-docker-compose up
+1) Run
+  docker-compose up
+2) Load the postman suite which contains both methods to test
 ```
