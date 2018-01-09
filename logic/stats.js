@@ -1,5 +1,4 @@
 const config = require('../config.js')
-const entities = require('../entities')
 const redis = require("redis")
 const sha256 = require('js-sha256');
 var bluebird = require("bluebird");
@@ -18,7 +17,8 @@ class Stats {
         var stats = await this.client.getAsync(this.prefixStats)
         if (stats) {
           stats = JSON.parse(stats)
-          return new entities.Stats(stats.mutant,stats.human);
+          stats.ratio = stats.count_mutant_dna / (stats.count_mutant_dna+stats.count_human_dna)
+          return stats;
         } else {
           throw 'No stats yet'
         }
@@ -44,15 +44,15 @@ class Stats {
         var stats = await this.client.getAsync(this.prefixStats)
         if (stats) {
           stats = JSON.parse(stats)
-          if (isHuman) stats.human ++
-          else if (unique) stats.mutant++
+          if (isHuman) stats.count_human_dna ++
+          else if (unique) stats.count_mutant_dna++
         } else {
           stats = {
-             human: 0,
-             mutant: 0
+             count_human_dna: 0,
+             count_mutant_dna: 0
           }
-          if (isHuman) stats.human=1
-          else stats.mutant=1
+          if (isHuman) stats.count_human_dna=1
+          else stats.count_mutant_dna=1
         }
 
         await this.client.setAsync(this.prefixStats, JSON.stringify(stats))

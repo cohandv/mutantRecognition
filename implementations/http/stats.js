@@ -8,20 +8,23 @@ class Stats {
        server.get('/stats',
             wrap(async (req, res, next) => {
 
-            //load configuration
-            const config = require('../../config.js')
+            try {
+              //load configuration
+              const config = require('../../config.js')
 
-            //Get current stats
-            const Stats = require('../../logic/stats.js');
-            var stats = new Stats()
-            var summary = await stats.getAsync()
+              //Get current stats
+              const Stats = require('../../logic/stats.js');
+              var stats = new Stats()
+              var summary = await stats.getAsync()
 
-            if (summary) {
-              res.status(200).send(summary)
-            } else {
-              res.status(404).send('No summary have been set yet')
+              if (summary) {
+                res.status(200).send(summary)
+              } else {
+                res.status(404).send('No summary have been set yet')
+              }
+            } catch (e) {
+              console.log(e)
             }
-
           }))
     }
 
