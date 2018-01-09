@@ -1,20 +1,37 @@
 const config = require('../config.js')
 const redis = require("redis")
-const sha256 = require('js-sha256');
-var bluebird = require("bluebird");
-bluebird.promisifyAll(redis.RedisClient.prototype);
+const sha256 = require('js-sha256')
+var bluebird = require("bluebird")
+bluebird.promisifyAll(redis.RedisClient.prototype)
 
 class Stats {
 
     constructor() {
       this.prefix = 'DNA'
       this.prefixStats = 'Stats'
-      this.client = redis.createClient(config.redis);
+    }
+
+    connect() {
+      try {
+          var client = redis.createClient(config.redis)
+
+          client.on("error", function (err) {
+              console.log("Error " + err)
+          });
+
+          return client
+      }
+      catch(e) {
+        return null
+      }
     }
 
     async getAsync() {
       try {
-        var stats = await this.client.getAsync(this.prefixStats)
+        var client = this.connect()
+        if (!client) return
+
+        var stats = await client.getAsync(this.prefixStats)
         if (stats) {
           stats = JSON.parse(stats)
           stats.ratio = stats.count_mutant_dna / (stats.count_mutant_dna+stats.count_human_dna)
@@ -30,18 +47,21 @@ class Stats {
 
     async setAsync(inputMatrix, isHuman) {
       try {
+        var client = this.connect()
+        if (!client) return
+
         var id = this.prefix + sha256(JSON.stringify(inputMatrix))
-        var dna = await this.client.getAsync(id )
+        var dna = await client.getAsync(id )
         var unique = false
         if (!dna) {
           unique = true
           dna = { }
           dna.id = id
           dna.object = inputMatrix
-          await this.client.setAsync(id, JSON.stringify(dna))
+          await client.setAsync(id, JSON.stringify(dna))
         }
 
-        var stats = await this.client.getAsync(this.prefixStats)
+        var stats = await client.getAsync(this.prefixStats)
         if (stats) {
           stats = JSON.parse(stats)
           if (isHuman) stats.count_human_dna ++
@@ -55,7 +75,7 @@ class Stats {
           else stats.count_mutant_dna=1
         }
 
-        await this.client.setAsync(this.prefixStats, JSON.stringify(stats))
+        await client.setAsync(this.prefixStats, JSON.stringify(stats))
 
       } catch (e) {
         throw e
