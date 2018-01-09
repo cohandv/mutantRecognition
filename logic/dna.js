@@ -27,7 +27,7 @@ class DNA {
                            + this.matrix.diagonal.anti
 
       var matches = serializedMatrix.match(this.mutantChainRegex)
-      var isMutant = matches.length >= minChainMatches
+      var isMutant = matches.length > minChainMatches
 
       if (config.persist) {
         console.log('Persisting information')
@@ -35,6 +35,8 @@ class DNA {
         var stats = new Stats()
         var summary = stats.setAsync(this.matrix.original, !isMutant)
      }
+
+     return isMutant
 
     }
 

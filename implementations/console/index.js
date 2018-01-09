@@ -16,7 +16,7 @@ class Console {
       const DNA = require('../../logic/dna.js');
       var dna = new DNA(inputMatrix)
       var minMutantChainChanges = config.minMutantChainChanges || process.env.nitrogenBases.minMutantChainChanges
-      var isHuman = dna.identifyMutant(minMutantChainChanges)
+      var isMutant = dna.identifyMutant(minMutantChainChanges)
 
       console.log('Params:')
       console.log(dna)
@@ -24,10 +24,10 @@ class Console {
       console.log('------------------------')
       console.log('Results')
 
-      if (isHuman) {
-        console.log('It\s not a mutant')
-      } else {
+      if (isMutant) {
         console.log('IT\'S MUTANT!!! Let\'s hire him')
+      } else {
+        console.log('It\s not a mutant')
       }
     }
 

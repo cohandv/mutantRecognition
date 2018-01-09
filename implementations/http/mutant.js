@@ -12,12 +12,12 @@ class Mutant {
             const DNA = require('../../logic/dna.js');
             var dna = new DNA(req.body.dna)
             var minMutantChainChanges = config.minMutantChainChanges || process.env.nitrogenBases.minMutantChainChanges
-            var isHuman = dna.identifyMutant(minMutantChainChanges)
+            var isMutant = dna.identifyMutant(minMutantChainChanges)
 
-            if (isHuman) {
-              res.status(403).send('It\s not a mutant')
-            } else {
+            if (isMutant) {
               res.status(200).send('IT\'S MUTANT!!et\'s hire him')
+            } else {
+              res.status(403).send('It\s not a mutant')
             }
 
           })
