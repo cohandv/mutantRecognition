@@ -21,7 +21,8 @@ if (process.env.CMD) {
   console.log('------------------------')
   console.log('Results')
 
-  if (changes >= config.minMutantChainChanges) {
+  var minChanges = config.minMutantChainChanges || process.env.nitrogenBases.minMutantChainChanges
+  if (changes >= minChanges) {
     console.log('IT\'S MUTANT!!! Let\'s hire him')
   } else {
     console.log('It\s not a mutant')

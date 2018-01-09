@@ -10,10 +10,9 @@ class DNA {
     }
 
     constructor(inputMatrix) {
-      this.matrix = new Matrix(inputMatrix, config.nitrogenBases)
-      this.mutantChainCount = 0
-      this.mutantChainRegex = config.mutantChainRegex
-      this.minMutantChainChanges = config.minMutantChainChanges
+      this.matrix = new Matrix(inputMatrix, config.nitrogenBases || process.env.nitrogenBases)
+      this.mutantChainRegex = config.mutantChainRegex || process.env.mutantChainRegex
+      this.minMutantChainChanges = config.minMutantChainChanges || process.env.minMutantChainChanges
 
       this.isValid()
     }
