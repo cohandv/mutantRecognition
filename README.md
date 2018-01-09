@@ -21,3 +21,6 @@ Update the inputMatrix value with the matrix you want to test
 3) Load the jmeter suite (inside tests folder) which contains both methods to test (the test is set to 100 concurrent users executing the suite 100 times)
 4) To redeploy execute docker-compose stop and docker-compose rm (to ensure using latest containers all the time)
 ```
+
+## Test the API on AWS
+on any browser (also you can use tests suites Postman or Jmeter) open the url http://http://174.129.75.12/stats

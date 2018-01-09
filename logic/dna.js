@@ -34,6 +34,8 @@ class DNA {
         const Stats = require('./stats.js');
         var stats = new Stats()
         var summary = stats.setAsync(this.matrix.original, !isMutant)
+     } else {
+       console.log('DNA is human, not persisting it')
      }
 
      return isMutant
