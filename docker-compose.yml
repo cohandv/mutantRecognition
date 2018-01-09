@@ -1,0 +1,16 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+     - "6379:6379"
+  mutant:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    restart: always
+    links:
+      - redis
+    ports:
+     - "3000:3000"

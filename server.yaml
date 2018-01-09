@@ -1,0 +1,7 @@
+# PM2 Configuration fot the application fonfig
+# http://pm2.keymetrics.io/docs/usage/application-declaration/ for more info
+apps:
+  - script      : /var/lib/mutant/index.js
+    name        : Main Application
+    exec_mode   : cluster
+    combine_logs: true

@@ -32,6 +32,7 @@ class Stats {
         if (!client) return
 
         var stats = await client.getAsync(this.prefixStats)
+        client.quit()
         if (stats) {
           stats = JSON.parse(stats)
           stats.ratio = stats.count_mutant_dna / (stats.count_mutant_dna+stats.count_human_dna)
@@ -76,6 +77,8 @@ class Stats {
         }
 
         await client.setAsync(this.prefixStats, JSON.stringify(stats))
+
+        client.quit()
 
       } catch (e) {
         throw e

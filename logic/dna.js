@@ -1,5 +1,5 @@
 const config = require('../config.js')
-const Matrix = require('./Matrix.js');
+const Matrix = require('./matrix.js');
 
 class DNA {
 
@@ -28,7 +28,6 @@ class DNA {
 
       var matches = serializedMatrix.match(this.mutantChainRegex)
       var isMutant = matches.length >= minChainMatches
-      console.log(isMutant)
 
       if (config.persist) {
         console.log('Persisting information')
