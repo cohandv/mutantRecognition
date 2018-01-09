@@ -16,5 +16,8 @@
     "express-async-wrap": "^1.0.0",
     "js-sha256": "^0.9.0",
     "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
   }
 }

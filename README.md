@@ -24,3 +24,10 @@ Update the inputMatrix value with the matrix you want to test
 
 ## Test the API on AWS
 on any browser (also you can use tests suites Postman or Jmeter) open the url http://http://174.129.75.12/stats
+
+## Run unit testing
+1) Install npm install mocha -g
+2) run
+```
+mocha tests --recursive -watch
+````
